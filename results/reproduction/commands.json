@@ -1,0 +1,85 @@
+{
+  "absolute_working_paths_omitted": true,
+  "all_exit_codes": 0,
+  "candidate_note": "These records were measured from a clean release candidate. Recording the JSON/CSV audit evidence does not alter code, paper, fixed inputs, or scientific results; the packaged final archive is checked once more externally.",
+  "commands": [
+    {
+      "command": [
+        "make"
+      ],
+      "exit_code": 0,
+      "label": "paper-build",
+      "outcome": "50 pages; final pass has 0 undefined citations/references and 0 overfull boxes",
+      "working_directory": "clean extracted full project paper/"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "label": "unit-tests",
+      "outcome": "57 tests passed",
+      "working_directory": "clean extracted standalone repository"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "compatibility.reproduce",
+        "--output",
+        "FRESH_SEMANTIC_OUTPUT"
+      ],
+      "exit_code": 0,
+      "label": "semantic-reproduction",
+      "outcome": "14/14 deterministic files exact; example and boundary fixtures reexecuted",
+      "working_directory": "clean extracted standalone repository"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "compatibility.reproduce_succinct",
+        "--output",
+        "FRESH_SUCCINCT_OUTPUT"
+      ],
+      "exit_code": 0,
+      "label": "succinct-reproduction",
+      "outcome": "7/7 deterministic files exact; 6,280 structure cases rechecked",
+      "working_directory": "clean extracted standalone repository"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "compatibility.cli",
+        "check",
+        "CASE",
+        "CERTIFICATE"
+      ],
+      "exit_code": 0,
+      "label": "direct-semantic-fixtures",
+      "outcome": "example and 32-state boundary certificates accepted; fresh example certificate produced with exclusive creation and rechecked",
+      "working_directory": "clean extracted standalone repository"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "compatibility.structure_check",
+        "--directory",
+        "results/succinct"
+      ],
+      "exit_code": 0,
+      "label": "direct-structure-check",
+      "outcome": "6,280 structures checked; 3,140 unique maximum and 3,140 two-maxima/two-state-core cases",
+      "working_directory": "clean extracted standalone repository"
+    }
+  ],
+  "measurement_note": "CPU, wall time, and RSS are environment-dependent and stored separately; only declared deterministic files are byte-compared."
+}
